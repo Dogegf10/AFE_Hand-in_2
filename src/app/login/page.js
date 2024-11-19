@@ -10,6 +10,8 @@ const Login = () => {
   const router = useRouter();
 
   const handleLogin = async (e) => {
+    console.log("Login validation");
+
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -44,38 +46,39 @@ const Login = () => {
   };
   
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white p-8 rounded shadow-md w-full max-w-sm"
+ return (
+  <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800">
+    <form
+      onSubmit={handleLogin}
+      className="bg-white dark:bg-gray-900 p-8 rounded shadow-2xl w-full max-w-sm"
+    >
+      <h1 className="text-xl font-bold mb-4 dark:text-white">Log in</h1>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="border p-2 w-full mb-4 rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+        required
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="border p-2 w-full mb-4 rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+        required
+      />
+      <button
+        type="submit"
+        className="bg-blue-500 text-white px-4 py-2 w-full rounded dark:bg-blue-600"
       >
-        <h1 className="text-xl font-bold mb-4">Log in</h1>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="border p-2 w-full mb-4 rounded"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border p-2 w-full mb-4 rounded"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 w-full rounded"
-        >
-          Log in
-        </button>
-      </form>
-    </div>
-  );
-};
+        Log in
+      </button>
+    </form>
+  </div>
+ );
+}
+
 
 export default Login;
