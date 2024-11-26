@@ -5,7 +5,7 @@ import CreateClient from "./components/CreateClient";
 import ListClients from "./components/ListClients"; // Tilføj denne import
 import ListWorkoutPrograms from "./components/ListWorkoutPrograms";
 import CreateWorkoutProgram from "./components/CreateWorkoutProgram";
-
+import AddExercise from "./components/AddExercise";
 
 const TrainerPage = () => {
   const [token, setToken] = useState("");
@@ -57,6 +57,8 @@ const TrainerPage = () => {
        <ListWorkoutPrograms token={token} refresh={refresh} />
 
        <CreateWorkoutProgram token={token}  onProgramCreated={handleRefresh} />
+
+       <AddExercise token={token} />
     </div>
   );
 };

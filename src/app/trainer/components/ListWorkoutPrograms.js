@@ -86,7 +86,7 @@ const ListWorkoutPrograms = ({ token, refresh  }) => {
                 <div className="flex justify-between items-center">
                   <div>
                     <h3
-                      className="text-lg font-bold cursor-pointer"
+                      className="text-lg text-orange-400 font-bold cursor-pointer"
                       onClick={() =>
                         fetchProgramDetails(program.workoutProgramId)
                       }
@@ -113,13 +113,13 @@ const ListWorkoutPrograms = ({ token, refresh  }) => {
       {/* Popup med detaljeret visning */}
       {selectedProgram && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur">
-          <div className="bg-white p-6 rounded shadow-lg w-3/4 max-w-2xl">
+          <div className="bg-white p-6 rounded shadow-lg w-3/4 max-w-2xl  text-black">
             <h3 className="text-lg font-bold mb-4">{selectedProgram.name}</h3>
-            <p className="text-sm text-gray-600 mb-4">{selectedProgram.description}</p>
+            <p className="text-sm text-gray-700 mb-4">{selectedProgram.description}</p>
             <h4 className="font-bold mb-2">Exercises:</h4>
             <table className="w-full table-auto border-collapse border border-gray-200">
               <thead>
-                <tr className="bg-gray-100">
+                <tr className="bg-gray-100 text-black">
                   <th className="border border-gray-300 px-4 py-2 text-left">Exercise</th>
                   <th className="border border-gray-300 px-4 py-2 text-left">Description</th>
                   <th className="border border-gray-300 px-4 py-2 text-center">Sets</th>
