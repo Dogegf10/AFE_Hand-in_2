@@ -60,7 +60,7 @@ const CreateClient = ({ token, onClientCreated }) => {
           placeholder="First Name"
           value={newClient.firstName}
           onChange={(e) => setNewClient({ ...newClient, firstName: e.target.value })}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-[220px]"
           required
         />
         <input
@@ -68,7 +68,7 @@ const CreateClient = ({ token, onClientCreated }) => {
           placeholder="Last Name"
           value={newClient.lastName}
           onChange={(e) => setNewClient({ ...newClient, lastName: e.target.value })}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-[220px]"
           required
         />
         <input
@@ -76,7 +76,7 @@ const CreateClient = ({ token, onClientCreated }) => {
           placeholder="Email"
           value={newClient.email}
           onChange={(e) => setNewClient({ ...newClient, email: e.target.value })}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-[220px]"
           required
         />
         <input
@@ -84,10 +84,10 @@ const CreateClient = ({ token, onClientCreated }) => {
           placeholder="Password"
           value={newClient.password}
           onChange={(e) => setNewClient({ ...newClient, password: e.target.value })}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-[220px]"
           required
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-[220px]">
           Create Client
         </button>
       </form>
