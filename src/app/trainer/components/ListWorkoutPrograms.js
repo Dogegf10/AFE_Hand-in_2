@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const ListWorkoutPrograms = ({ token }) => {
+const ListWorkoutPrograms = ({ token, refresh  }) => {
   const [workoutPrograms, setWorkoutPrograms] = useState([]);
   const [selectedProgram, setSelectedProgram] = useState(null); // Gem det valgte program
   const [error, setError] = useState("");
@@ -10,7 +10,7 @@ const ListWorkoutPrograms = ({ token }) => {
     if (token) {
       fetchWorkoutPrograms();
     }
-  }, [token]);
+  }, [token, refresh ]);
 
   // Hent træningsprogrammer
   const fetchWorkoutPrograms = async () => {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import CreateClient from "./components/CreateClient"; 
 import ListClients from "./components/ListClients"; // Tilføj denne import
 import ListWorkoutPrograms from "./components/ListWorkoutPrograms";
-
+import CreateWorkoutProgram from "./components/CreateWorkoutProgram";
 
 
 const TrainerPage = () => {
@@ -54,7 +54,9 @@ const TrainerPage = () => {
       <ListClients token={token} refresh={refresh} />
 
        {/* Liste over træningsprogrammer */}
-       <ListWorkoutPrograms token={token} />
+       <ListWorkoutPrograms token={token} refresh={refresh} />
+
+       <CreateWorkoutProgram token={token}  onProgramCreated={handleRefresh} />
     </div>
   );
 };
