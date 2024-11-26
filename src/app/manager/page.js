@@ -58,9 +58,18 @@ const ManagerDashboard = () => {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Manager Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Manager Dashboard</h1>
 
-      <h2 className="text-xl font-semibold mb-2">Opret en ny Personal Trainer</h2>
+      {/* billede i øverste højre hjørne */}
+      <div className="absolute top-4 right-4">
+        <img
+         src="/img/Manager_pig.png"
+         alt="Logo"
+         className="h-32 w-auto"
+        />
+      </div>
+
+      <h2 className="text-xl font-semibold mb-2">Create a new Personal Trainer</h2>
       <form onSubmit={createTrainer} className="bg-white p-4 rounded shadow mb-6 max-w-md">
         <input
           type="email"
@@ -102,7 +111,7 @@ const ManagerDashboard = () => {
         </button>
       </form>
 
-      <h2 className="text-xl font-semibold mb-2">Liste over Personal Trainers</h2>
+      <h2 className="text-xl font-semibold mb-2">List of Personal Trainers</h2>
       <ul className="bg-white p-4 rounded shadow max-w-md">
         {trainers.length === 0 ? (
           <p>Ingen trænere fundet.</p>
