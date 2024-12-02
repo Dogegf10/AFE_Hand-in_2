@@ -61,7 +61,7 @@ const ManagerDashboard = () => {
       <h1 className="text-2xl font-bold mb-4 text-center">Manager Dashboard</h1>
 
       {/* billede i øverste højre hjørne */}
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-20 right-4">
         <img
          src="/img/Manager_pig.png"
          alt="Logo"
