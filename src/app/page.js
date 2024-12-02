@@ -19,7 +19,8 @@ export default function Home() {
 
         <a
           href="/login"
-          className="bg-blue-500 text-white px-6 py-3 rounded text-lg"
+          className="bg-blue-500 text-white px-6 py-3 rounded text-lg transition-all duration-200 ease-in-out hover:bg-blue-600 active:bg-blue-700 transform active:scale-95"
+
         >
           Login
         </a>
