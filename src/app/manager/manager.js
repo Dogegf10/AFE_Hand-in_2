@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const ManagerDashboard = () => {
+const ManagerComponent = () => {
   const [trainers, setTrainers] = useState([]);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -22,7 +22,9 @@ const ManagerDashboard = () => {
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/Users`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setTrainers(response.data.filter((user) => user.accountType === "PersonalTrainer"));
+      setTrainers(
+        response.data.filter((user) => user.accountType === "PersonalTrainer")
+      );
     } catch (error) {
       console.error("Error fetching trainers:", error);
       alert("Kunne ikke hente trænere.");
@@ -62,15 +64,16 @@ const ManagerDashboard = () => {
 
       {/* billede i øverste højre hjørne */}
       <div className="absolute top-4 right-4">
-        <img
-         src="/img/Manager_pig.png"
-         alt="Logo"
-         className="h-32 w-auto"
-        />
+        <img src="/img/Manager_pig.png" alt="Logo" className="h-32 w-auto" />
       </div>
 
-      <h2 className="text-xl font-semibold mb-2">Create a new Personal Trainer</h2>
-      <form onSubmit={createTrainer} className="bg-white p-4 rounded shadow mb-6 max-w-md">
+      <h2 className="text-xl font-semibold mb-2">
+        Create a new Personal Trainer
+      </h2>
+      <form
+        onSubmit={createTrainer}
+        className="bg-white p-4 rounded shadow mb-6 max-w-md"
+      >
         <input
           type="email"
           placeholder="Email"
@@ -133,4 +136,4 @@ const ManagerDashboard = () => {
   );
 };
 
-export default ManagerDashboard;
+export default ManagerComponent;

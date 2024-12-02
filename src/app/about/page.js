@@ -1,5 +1,10 @@
 "server only";
 const AboutPage = () => {
+  if (typeof window == "undefined") {
+    console.log("Application is on server side");
+  } else {
+    alert("Application is on client side");
+  }
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-12">
       <h1 className="text-4xl font-bold mb-6 text-center text-gray-800">

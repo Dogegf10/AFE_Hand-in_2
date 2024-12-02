@@ -1,5 +1,5 @@
 import React from "react";
-import { postUserPassword } from "./UserApiCalls";
+import { postUserPassword } from "../../UserApiCalls";
 
 export const ChangePasswordComponent = ({ token }) => {
   const handleSubmit = async (event) => {

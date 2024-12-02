@@ -1,52 +1,20 @@
-"use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getUserData, getUserWorkouts } from "./components/UserApiCalls";
+import { getUserData, getUserWorkouts } from "../UserApiCalls";
+import { ChangeUserInfoComponent } from "./components/ChangeUserInfoComponent";
 import { WorkoutCardComponent } from "./components/WorkoutCardComponent";
 import { ChangePasswordComponent } from "./components/ChangePasswordComponent";
-import { ChangeUserInfoComponent } from "./components/ChangeUserInfoComponent";
 
-export default function Home() {
+export default function ClientComponent({ token, userData }) {
   const router = useRouter();
-  const [token, setToken] = useState("");
-  const [userId, setUserId] = useState("");
-  const [userData, setUserData] = useState(null);
   const [userWorkouts, setUserWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
   const [selectedMenuOption, setSelectedMenuOption] = useState("workouts");
+  const [trainer, setTrainer] = useState("");
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      console.log("Token found in localStorage:", storedToken);
-      setToken(storedToken);
-      const payload = JSON.parse(atob(storedToken.split(".")[1]));
-      console.log("Decoded payload:", payload);
-      setUserId(payload.UserId); // Ensure the correct key is used
-    } else {
-      console.log("No token found in localStorage");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (token && userId) {
-      console.log(
-        `Fetching user data with token ${token} and userId: ${userId}`
-      );
-      getUserData(token, userId)
-        .then((data) => {
-          if (data) {
-            console.log("User data fetched:", data);
-            setUserData(data);
-          } else {
-            console.log("No user data returned");
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-        });
-
-      getUserWorkouts(token, userId)
+    if (token && userData) {
+      getUserWorkouts(token, userData.userId)
         .then((data) => {
           if (data) {
             console.log("User workouts fetched:", data);
@@ -62,7 +30,25 @@ export default function Home() {
           console.error("Error fetching user workouts:", error);
         });
     }
-  }, [token, userId]);
+  }, [token, userData]);
+
+  useEffect(() => {
+    if (!selectedWorkout) {
+      return;
+    }
+    getUserData(token, selectedWorkout.personalTrainerId)
+      .then((data) => {
+        if (data) {
+          console.log("Trainer data fetched:", data);
+          setTrainer(data);
+        } else {
+          console.log("No trainer data returned");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching trainer data:", error);
+      });
+  }, [selectedWorkout, token]);
 
   const handleWorkoutSelect = (workout) => {
     setSelectedWorkout(workout);
@@ -72,42 +58,51 @@ export default function Home() {
     switch (selectedMenuOption) {
       case "workouts":
         return (
-          <div>
-            {userWorkouts.length > 1 ? (
-              <div>
-                <h3 className="text-xl font-semibold mb-4">
-                  Select a Workout Program
-                </h3>
-                <ul className="space-y-2">
-                  {userWorkouts.map((workout, index) => (
-                    <li
-                      key={index}
-                      onClick={() => handleWorkoutSelect(workout)}
-                      className="cursor-pointer hover:bg-gray-700 p-2 rounded"
-                    >
-                      {workout.name}
-                    </li>
-                  ))}
-                </ul>
-                {selectedWorkout && (
-                  <div className="mt-4">
-                    <h3 className="text-xl font-semibold mb-2">
-                      Selected Workout Program
-                    </h3>
+          <div className="flex">
+            <div className="flex-1">
+              {userWorkouts.length > 1 ? (
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">
+                    Select a Workout Program
+                  </h3>
+                  <ul className="space-y-2">
+                    {userWorkouts.map((workout, index) => (
+                      <li
+                        key={index}
+                        onClick={() => handleWorkoutSelect(workout)}
+                        className="cursor-pointer hover:bg-gray-700 p-2 rounded"
+                      >
+                        {workout.name}
+                      </li>
+                    ))}
+                  </ul>
+                  {selectedWorkout && (
+                    <div className="mt-4">
+                      <h3 className="text-xl font-semibold mb-2">
+                        Selected Workout Program
+                      </h3>
+                      <WorkoutCardComponent prop={selectedWorkout} />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  <h3 className="text-xl font-semibold mb-4">
+                    Your Workout Program
+                  </h3>
+                  {selectedWorkout && (
                     <WorkoutCardComponent prop={selectedWorkout} />
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div>
-                <h3 className="text-xl font-semibold mb-4">
-                  Your Workout Program
-                </h3>
-                {selectedWorkout && (
-                  <WorkoutCardComponent prop={selectedWorkout} />
-                )}
-              </div>
-            )}
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="ml-4">
+              <img
+                src="/img/client_pig.png"
+                alt="Logo"
+                className="h-32 w-auto"
+              />
+            </div>
           </div>
         );
       case "updateInfo":

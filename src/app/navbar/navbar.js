@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -9,48 +10,34 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const updateAuthState = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/Users/${payload.UserId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            setUserRole(data.accountType);
-            setIsLoggedIn(true);
-          })
-          .catch((error) => {
-            console.error("Error fetching user data:", error);
-          });
-      } else {
-        setIsLoggedIn(false);
-        setUserRole(null);
-      }
-    };
-
-    // Update auth state on mount
-    updateAuthState();
-
-    // Listen for storage changes
-    window.addEventListener("storage", updateAuthState);
-
-    // Cleanup listener on unmount
-    return () => {
-      window.removeEventListener("storage", updateAuthState);
-    };
+    const token = localStorage.getItem("token");
+    if (token) {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/Users/${payload.UserId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserRole(data.accountType);
+          setIsLoggedIn(true);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          setIsLoggedIn(false);
+          setUserRole(null);
+        });
+    } else {
+      setIsLoggedIn(false);
+      setUserRole(null);
+    }
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
-    setUserRole(null); // Clear user role on logout
+    setUserRole(null);
     router.push("/login");
   };
 
@@ -58,20 +45,8 @@ const Navbar = () => {
     if (!isLoggedIn) {
       router.push("/");
       return;
-    }
-    switch (userRole) {
-      case "Client":
-        router.push("/client");
-        break;
-      case "PersonalTrainer":
-        router.push("/trainer");
-        break;
-      case "Manager":
-        router.push("/manager");
-        break;
-      default:
-        router.push("/");
-        break;
+    } else {
+      router.push("/home");
     }
   };
 

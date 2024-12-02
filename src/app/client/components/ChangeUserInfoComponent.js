@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { putUserData } from "./UserApiCalls";
+import { putUserData } from "../../UserApiCalls";
 
 export const ChangeUserInfoComponent = ({ token, uData }) => {
   const [userData, setUserData] = useState(uData);
