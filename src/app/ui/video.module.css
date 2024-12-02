@@ -2,8 +2,8 @@
     position: absolute; /* Sørger for, at videoen kan fylde hele containeren */
     top: 0;
     left: 0;
-    width: 100vw; /* Dækker hele viewportens bredde */
-    height: 100vh; /* Dækker hele viewportens højde */
+    width: auto; /* Dækker hele viewportens bredde */
+    height: auto; /* Dækker hele viewportens højde */
     object-fit: cover; /* Fylder containeren uden at forvrænge */
     z-index: -1; /* Sørger for, at videoen er bagved andet indhold */
   }
