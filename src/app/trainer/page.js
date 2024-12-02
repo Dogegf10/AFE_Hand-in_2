@@ -37,7 +37,7 @@ const TrainerPage = () => {
       </h1>
 
         {/* billede i øverste højre hjørne */}
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-20 right-4">
         <img
          src="/img/Personal_Trainer.png"
          alt="Logo"
