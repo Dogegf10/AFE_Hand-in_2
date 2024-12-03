@@ -64,7 +64,7 @@ const ManagerComponent = () => {
 
       {/* billede i øverste højre hjørne */}
       <div className="absolute top-20 right-4">
-        <img src="/img/Manager_pig.png" alt="Logo" className="h-32 w-auto" />
+        <img src="/img/manager_pig.png" alt="Logo" className="h-32 w-auto" />
       </div>
 
       <h2 className="text-xl font-semibold mb-2">

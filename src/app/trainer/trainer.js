@@ -39,7 +39,7 @@ const TrainerComponent = () => {
       {/* billede i øverste højre hjørne */}
       <div className="absolute top-20 right-4">
         <img
-          src="/img/Personal_Trainer.png"
+          src="/img/personal_trainer.png"
           alt="Logo"
           className="h-32 w-auto"
         />
