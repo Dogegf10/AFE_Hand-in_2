@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
-const CreateWorkoutProgram = ({ token, onProgramCreated  }) => {
+const CreateWorkoutProgram = ({ token, onProgramCreated, refresh  }) => {
   const [clients, setClients] = useState([]);
   const [newProgram, setNewProgram] = useState({
     name: "",
     description: "",
     clientId: "",
   });
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (token) {
       fetchClients();
     }
-  }, [token]);
+  }, [token, refresh]);
 
   // Hent liste over klienter
   const fetchClients = async () => {
@@ -30,7 +30,6 @@ const CreateWorkoutProgram = ({ token, onProgramCreated  }) => {
       setClients(response.data);
     } catch (err) {
       console.error("Error fetching clients:", err);
-      setMessage("Failed to fetch clients.");
     }
   };
 
@@ -51,7 +50,7 @@ const CreateWorkoutProgram = ({ token, onProgramCreated  }) => {
           },
         }
       );
-      setMessage("Workout program created successfully!");
+      toast.success('Program successfully created');
       setNewProgram({ name: "", description: "", clientId: "" });
       
       if (onProgramCreated) {
@@ -59,14 +58,13 @@ const CreateWorkoutProgram = ({ token, onProgramCreated  }) => {
       }
     } catch (err) {
       console.error("Error creating workout program:", err);
-      setMessage("Failed to create workout program.");
+      toast.error("Error creating workout program");
     }
   };
 
   return (
     <section className="mt-8">
       <h2 className="text-xl font-bold mb-4">Create New Workout Program</h2>
-      {message && <p className={`mb-4 ${message.includes("successfully") ? "text-green-500" : "text-red-500"}`}>{message}</p>}
       <form onSubmit={createWorkoutProgram} className="flex flex-col gap-4">
         <input
           type="text"

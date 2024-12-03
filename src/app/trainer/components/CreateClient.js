@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const CreateClient = ({ token, onClientCreated }) => {
   const [newClient, setNewClient] = useState({
@@ -9,7 +10,6 @@ const CreateClient = ({ token, onClientCreated }) => {
     password: "",
   });
   const [personalTrainerId, setPersonalTrainerId] = useState(null);
-  const [message, setMessage] = useState("");
 
   // Udtræk personalTrainerId fra JWT-tokenet
   useEffect(() => {
@@ -40,14 +40,14 @@ const CreateClient = ({ token, onClientCreated }) => {
         }
       );
 
-      setMessage("Client created successfully!");
+      toast.success('Client created');
       setNewClient({ firstName: "", lastName: "", email: "", password: "" }); // Ryd formularen
 
       console.log("Client created:", response.data); // Debug
       onClientCreated(); //opdaterer list clients
     } catch (err) {
       console.error("Error creating client:", err);
-      setMessage("Failed to create client. Please try again.");
+      toast.error("Failed to create client. Please try again.");
     }
   };
 
@@ -91,7 +91,6 @@ const CreateClient = ({ token, onClientCreated }) => {
           Create Client
         </button>
       </form>
-      {message && <p className="mt-4 text-green-500">{message}</p>}
     </section>
   );
 };

@@ -25,10 +25,7 @@ const Login = () => {
       // Gem token i localStorage
       localStorage.setItem("token", token);
 
-      // Decode token for at finde brugerens rolle
-      const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT payload
-      const accountType = payload.Role;
-
+      // /home validates jwt role
       router.push("/home");
     } catch (err) {
       console.error(err);

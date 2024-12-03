@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const ListWorkoutPrograms = ({ token, refresh  }) => {
   const [workoutPrograms, setWorkoutPrograms] = useState([]);
@@ -59,7 +60,7 @@ const ListWorkoutPrograms = ({ token, refresh  }) => {
             },
           }
         );
-        alert("Workout program deleted successfully!");
+        toast.success('Program deleted successfully');
         fetchWorkoutPrograms(); // Opdater listen efter sletning
         setSelectedProgram(null); // Fjern valgt program, hvis det er åbent
       } catch (err) {

@@ -51,14 +51,14 @@ const TrainerComponent = () => {
       </div>
 
       {/* Liste over klienter */}
-      <ListClients token={token} refresh={refresh} />
+      <ListClients token={token} refresh={refresh} onClientDeleted={handleRefresh} />
 
       {/* Liste over træningsprogrammer */}
       <ListWorkoutPrograms token={token} refresh={refresh} />
 
-      <CreateWorkoutProgram token={token} onProgramCreated={handleRefresh} />
+      <CreateWorkoutProgram token={token} refresh={refresh} onProgramCreated={handleRefresh} />
 
-      <AddExercise token={token} />
+      <AddExercise token={token} refresh={refresh} />
     </div>
   );
 };

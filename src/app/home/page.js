@@ -10,6 +10,7 @@ const HomePage = () => {
   const [token, setToken] = useState("");
   const [renderComponent, setRenderComponent] = useState("home");
 
+  // Get jwt token to identify what should be displayed at /home 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {

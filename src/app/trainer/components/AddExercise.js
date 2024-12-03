@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
-const AddExercise = ({ token }) => {
+const AddExercise = ({ token, refresh }) => {
   const [workoutPrograms, setWorkoutPrograms] = useState([]);
   const [selectedProgramId, setSelectedProgramId] = useState("");
   const [newExercise, setNewExercise] = useState({
@@ -11,13 +12,12 @@ const AddExercise = ({ token }) => {
     repetitions: "",
     time: "",
   });
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (token) {
       fetchWorkoutPrograms();
     }
-  }, [token]);
+  }, [token, refresh]);
 
   // Hent træningsprogrammer
   const fetchWorkoutPrograms = async () => {
@@ -33,7 +33,7 @@ const AddExercise = ({ token }) => {
       setWorkoutPrograms(response.data);
     } catch (err) {
       console.error("Error fetching workout programs:", err);
-      setMessage("Failed to fetch workout programs.");
+      toast.error("Failed to fetch workout programs.");
     }
   };
 
@@ -41,7 +41,7 @@ const AddExercise = ({ token }) => {
   const addExercise = async (e) => {
     e.preventDefault();
     if (!selectedProgramId) {
-      setMessage("Please select a workout program.");
+      toast("Please select a workout program.");
       return;
     }
     try {
@@ -60,18 +60,17 @@ const AddExercise = ({ token }) => {
           },
         }
       );
-      setMessage("Exercise added successfully!");
+      toast.success("Exercise added successfully!");
       setNewExercise({ name: "", description: "", sets: "", repetitions: "", time: "" });
     } catch (err) {
       console.error("Error adding exercise:", err);
-      setMessage("Failed to add exercise. Please try again.");
+      toast.error("Failed to add exercise. Please try again.");
     }
   };
 
   return (
     <section className="mt-8">
       <h2 className="text-xl font-bold mb-4">Add Exercise to Workout Program</h2>
-      {message && <p className={`mb-4 ${message.includes("successfully") ? "text-green-500" : "text-red-500"}`}>{message}</p>}
       <form onSubmit={addExercise} className="flex flex-col gap-4">
         <select
           value={selectedProgramId}
